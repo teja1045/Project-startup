@@ -52,12 +52,13 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
+      const authHeaders = getAuthHeaders();
       const [statsRes, quotesRes, consultationsRes, quotesCountRes, consultationsCountRes] = await Promise.all([
-        axios.get(`${API}/stats`),
-        axios.get(`${API}/quotes?limit=${itemsPerPage}&skip=${quotesPage * itemsPerPage}`),
-        axios.get(`${API}/consultations?limit=${itemsPerPage}&skip=${consultationsPage * itemsPerPage}`),
-        axios.get(`${API}/quotes/count`),
-        axios.get(`${API}/consultations/count`)
+        axios.get(`${API}/stats`, authHeaders),
+        axios.get(`${API}/quotes?limit=${itemsPerPage}&skip=${quotesPage * itemsPerPage}`, authHeaders),
+        axios.get(`${API}/consultations?limit=${itemsPerPage}&skip=${consultationsPage * itemsPerPage}`, authHeaders),
+        axios.get(`${API}/quotes/count`, authHeaders),
+        axios.get(`${API}/consultations/count`, authHeaders)
       ]);
       
       setStats(statsRes.data);
@@ -67,7 +68,13 @@ const AdminDashboard = () => {
       setConsultationsTotal(consultationsCountRes.data.total);
     } catch (error) {
       console.error('Error fetching data:', error);
-      toast.error('Failed to load dashboard data');
+      if (error.response?.status === 401) {
+        toast.error('Session expired. Please login again.');
+        localStorage.removeItem('admin_token');
+        navigate('/admin/login');
+      } else {
+        toast.error('Failed to load dashboard data');
+      }
     } finally {
       setLoading(false);
     }
