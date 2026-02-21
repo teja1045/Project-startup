@@ -1,8 +1,9 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Config from 'react-native-config';
 
-// Update this with your backend URL
-const API_URL = 'https://build-serve-test.preview.emergentagent.com/api';
+// Read API URL from environment variable
+const API_URL = Config.API_URL || 'https://build-serve-test.preview.emergentagent.com/api';
 
 const api = axios.create({
   baseURL: API_URL,
