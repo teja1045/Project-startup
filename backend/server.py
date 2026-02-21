@@ -137,6 +137,8 @@ async def admin_login(login: AdminLogin):
 
 @api_router.post("/admin/change-password")
 async def change_admin_password(password_change: PasswordChange, token: dict = Depends(verify_token)):
+    global ADMIN_PASSWORD
+    
     if password_change.current_password != ADMIN_PASSWORD:
         raise HTTPException(status_code=401, detail="Current password is incorrect")
     
@@ -153,7 +155,6 @@ async def change_admin_password(password_change: PasswordChange, token: dict = D
                 f.write(line)
     
     # Update global variable
-    global ADMIN_PASSWORD
     ADMIN_PASSWORD = password_change.new_password
     
     return {"message": "Password changed successfully. Please login again with new password."}
