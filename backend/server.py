@@ -169,6 +169,12 @@ async def get_consultations(limit: int = 50, skip: int = 0):
     return consultations
 
 
+@api_router.get("/consultations/count")
+async def get_consultations_count():
+    total = await db.consultations.count_documents({})
+    return {"total": total}
+
+
 @api_router.patch("/consultations/{consultation_id}/status")
 async def update_consultation_status(consultation_id: str, status: str):
     result = await db.consultations.update_one(
