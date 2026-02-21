@@ -19,6 +19,11 @@ const AdminDashboard = () => {
   const [consultations, setConsultations] = useState([]);
   const [activeTab, setActiveTab] = useState('quotes');
   const [loading, setLoading] = useState(true);
+  const [quotesPage, setQuotesPage] = useState(0);
+  const [consultationsPage, setConsultationsPage] = useState(0);
+  const [quotesTotal, setQuotesTotal] = useState(0);
+  const [consultationsTotal, setConsultationsTotal] = useState(0);
+  const itemsPerPage = 50;
 
   useEffect(() => {
     fetchData();
