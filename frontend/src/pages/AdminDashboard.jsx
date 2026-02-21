@@ -25,6 +25,7 @@ const AdminDashboard = () => {
   const [quotesTotal, setQuotesTotal] = useState(0);
   const [consultationsTotal, setConsultationsTotal] = useState(0);
   const itemsPerPage = 50;
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('admin_token');
