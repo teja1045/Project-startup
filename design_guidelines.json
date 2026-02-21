@@ -1,0 +1,132 @@
+{
+  "identity": {
+    "persona": "E1 - The Anti-AI Designer",
+    "mission": "Create a catchy, clean, and modern full-stack development service platform that breaks generic SaaS tropes.",
+    "principles": [
+      "Fusion over Imitation: Mix Swiss Brutalism with High-Tech sleekness.",
+      "Emotion First: Evoke competence, speed, and precision.",
+      "Content is King: Every pixel must serve the narrative of 'Elite Engineering'.",
+      "Negative Space: Use it aggressively to create a premium feel."
+    ]
+  },
+  "theme": {
+    "name": "The Midnight Protocol",
+    "mode": "dark",
+    "strategy": "High-Contrast Dark Mode with Vibrant Accents",
+    "description": "A deep void background (#050505) grounded by indigo/violet accents. Crisp, high-contrast text for readability. Glassmorphism used strictly for navigation and overlays."
+  },
+  "typography": {
+    "headings": {
+      "fontFamily": "Space Grotesk, sans-serif",
+      "weights": ["600", "700"],
+      "letterSpacing": "-0.02em",
+      "description": "Tech-forward, distinctive, modern."
+    },
+    "body": {
+      "fontFamily": "Inter, sans-serif",
+      "weights": ["400", "500"],
+      "description": "Highly readable, standard for technical content."
+    },
+    "mono": {
+      "fontFamily": "JetBrains Mono, monospace",
+      "description": "For code snippets and technical data."
+    }
+  },
+  "colors": {
+    "palette": {
+      "background": "#050505",
+      "foreground": "#FFFFFF",
+      "card": "#0A0A0A",
+      "cardForeground": "#FFFFFF",
+      "primary": "#6366f1",
+      "primaryForeground": "#FFFFFF",
+      "secondary": "#1e1e2e",
+      "secondaryForeground": "#a5b4fc",
+      "accent": "#8b5cf6",
+      "accentForeground": "#FFFFFF",
+      "muted": "#1e1e2e",
+      "mutedForeground": "#94a3b8",
+      "border": "#27272a",
+      "input": "#27272a"
+    },
+    "gradients": {
+      "hero": "radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, rgba(5, 5, 5, 0) 70%)",
+      "beam": "linear-gradient(90deg, transparent, #6366f1, transparent)"
+    }
+  },
+  "layout_strategy": {
+    "spacing_scale": ["p-4", "p-8", "p-12", "p-24", "p-32"],
+    "container_padding": "p-8 md:p-12",
+    "grids": {
+      "marketing": "grid-cols-1 md:grid-cols-12 gap-8 (Mode A: Tetris Grid)",
+      "dashboard": "grid-cols-1 md:grid-cols-4 gap-6 (Mode B: High Density)"
+    }
+  },
+  "component_guidelines": {
+    "buttons": {
+      "style": "pill-shaped or sharp-edged",
+      "interaction": "transform hover:-translate-y-1 transition-all duration-200",
+      "variants": {
+        "primary": "bg-primary text-white hover:bg-primary/90 shadow-[0_0_20px_rgba(99,102,241,0.3)]",
+        "outline": "border border-white/20 hover:bg-white/10 text-white"
+      }
+    },
+    "cards": {
+      "style": "Flat background (#0A0A0A) with 1px border (#27272a).",
+      "effect": "Tracing Beam hover effect or subtle inner glow.",
+      "padding": "p-6 or p-8"
+    },
+    "inputs": {
+      "style": "bg-white/5 border-white/10 focus:border-primary focus:ring-1 focus:ring-primary rounded-md h-12"
+    },
+    "navigation": {
+      "style": "Glassmorphism: bg-black/60 backdrop-blur-xl border-b border-white/10"
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": "backdrop-blur-xl bg-white/5 border border-white/10",
+    "tracing_beam": "Animated gradient border for high-value cards.",
+    "noise_texture": "Subtle grain overlay on backgrounds to prevent flatness.",
+    "glows": "Radial gradients behind key elements (Hero, CTAs)."
+  },
+  "assets": {
+    "images": {
+      "hero_bg": "https://images.unsplash.com/photo-1764263996452-d8498c9b0ce8?auto=format&fit=crop&q=80",
+      "services": {
+        "development": "https://images.pexels.com/photos/6190327/pexels-photo-6190327.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "deployment": "https://images.pexels.com/photos/5480781/pexels-photo-5480781.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "qa": "https://images.pexels.com/photos/6322806/pexels-photo-6322806.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      },
+      "team": "https://images.unsplash.com/photo-1727857934741-93f20b9ffe71?auto=format&fit=crop&q=80"
+    },
+    "icons": "Lucide React (default) or Phosphor Icons (for marketing)."
+  },
+  "pages": {
+    "landing": {
+      "sections": ["Hero", "Services (Bento)", "Process", "Consultation CTA", "Footer"],
+      "hero_text": "Engineering the Future.",
+      "hero_sub": "Full-stack development, seamless deployment, and rigorous QA. We build what's next."
+    },
+    "services": {
+      "layout": "Detailed feature grid with code snippets as visuals."
+    },
+    "dashboard": {
+      "layout": "Sidebar navigation, top header, dense data grid.",
+      "theme": "Strictly functional, reduced noise, high data density."
+    }
+  },
+  "accessibility": {
+    "contrast": "Ensure text is WCAG AA compliant. Use lighter grays (e.g., #e2e8f0) on dark backgrounds.",
+    "interactive": "Focus states must be visible (ring-2 ring-primary).",
+    "motion": "Respect prefers-reduced-motion."
+  },
+  "universal_guidelines": [
+    "Do not apply 'transition: all'. Animate specific properties.",
+    "Use data-testid attributes for all interactive elements.",
+    "Use 'sonner' for toast notifications.",
+    "Avoid generic gradients; use subtle, deep gradients.",
+    "Ensure mobile responsiveness: images max-h-[80vh].",
+    "Never center-align the main app container."
+  ],
+  "instructions_to_main_agent": "Read this file first. Install 'lucide-react', 'clsx', 'tailwind-merge' if missing. Implement the ThemeProvider to handle the dark mode preference (default to dark). Build the 'Hero' section with the 'tracing beam' concept if possible, or high-quality CSS gradients."
+}
