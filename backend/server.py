@@ -121,6 +121,15 @@ async def root():
     return {"message": "Development Services API"}
 
 
+@api_router.post("/admin/login", response_model=TokenResponse)
+async def admin_login(login: AdminLogin):
+    if login.password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="Invalid password")
+    
+    access_token = create_access_token({"sub": "admin"})
+    return TokenResponse(access_token=access_token)
+
+
 @api_router.get("/services", response_model=List[Service])
 async def get_services():
     services = await db.services.find({}, {"_id": 0}).to_list(100)
