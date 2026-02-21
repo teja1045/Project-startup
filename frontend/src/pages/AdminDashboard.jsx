@@ -140,14 +140,24 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen py-20 px-8" data-testid="admin-dashboard-page">
       <div className="max-w-7xl mx-auto">
-        <button
-          onClick={() => navigate('/')}
-          className="flex items-center gap-2 text-[#94a3b8] hover:text-white mb-8 transition-colors"
-          data-testid="back-button"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          Back to Home
-        </button>
+        <div className="flex items-center justify-between mb-8">
+          <button
+            onClick={() => navigate('/')}
+            className="flex items-center gap-2 text-[#94a3b8] hover:text-white transition-colors"
+            data-testid="back-button"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            Back to Home
+          </button>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 text-[#94a3b8] hover:text-red-400 transition-colors"
+            data-testid="logout-button"
+          >
+            <LogOut className="w-5 h-5" />
+            Logout
+          </button>
+        </div>
 
         <h1
           className="text-4xl sm:text-5xl font-bold mb-10"
