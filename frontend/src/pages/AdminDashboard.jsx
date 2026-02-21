@@ -82,23 +82,33 @@ const AdminDashboard = () => {
 
   const updateQuoteStatus = async (quoteId, status) => {
     try {
-      await axios.patch(`${API}/quotes/${quoteId}/status?status=${status}`);
+      await axios.patch(`${API}/quotes/${quoteId}/status?status=${status}`, {}, getAuthHeaders());
       toast.success('Quote status updated');
       fetchData();
     } catch (error) {
       console.error('Error updating quote status:', error);
-      toast.error('Failed to update quote status');
+      if (error.response?.status === 401) {
+        toast.error('Session expired. Please login again.');
+        navigate('/admin/login');
+      } else {
+        toast.error('Failed to update quote status');
+      }
     }
   };
 
   const updateConsultationStatus = async (consultationId, status) => {
     try {
-      await axios.patch(`${API}/consultations/${consultationId}/status?status=${status}`);
+      await axios.patch(`${API}/consultations/${consultationId}/status?status=${status}`, {}, getAuthHeaders());
       toast.success('Consultation status updated');
       fetchData();
     } catch (error) {
       console.error('Error updating consultation status:', error);
-      toast.error('Failed to update consultation status');
+      if (error.response?.status === 401) {
+        toast.error('Session expired. Please login again.');
+        navigate('/admin/login');
+      } else {
+        toast.error('Failed to update consultation status');
+      }
     }
   };
 
