@@ -51,6 +51,11 @@ const AdminDashboard = () => {
     navigate('/admin/login');
   };
 
+  const handlePasswordChanged = () => {
+    localStorage.removeItem('admin_token');
+    navigate('/admin/login');
+  };
+
   const fetchData = async () => {
     setLoading(true);
     try {
