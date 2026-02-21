@@ -203,7 +203,7 @@ async def create_consultation(consultation: ConsultationBookingCreate):
 
 
 @api_router.get("/consultations", response_model=List[ConsultationBooking])
-async def get_consultations(limit: int = 50, skip: int = 0):
+async def get_consultations(limit: int = 50, skip: int = 0, token: dict = Depends(verify_token)):
     consultations = await db.consultations.find({}, {"_id": 0}).sort("created_at", -1).skip(skip).limit(limit).to_list(limit)
     
     for consultation in consultations:
@@ -214,13 +214,13 @@ async def get_consultations(limit: int = 50, skip: int = 0):
 
 
 @api_router.get("/consultations/count")
-async def get_consultations_count():
+async def get_consultations_count(token: dict = Depends(verify_token)):
     total = await db.consultations.count_documents({})
     return {"total": total}
 
 
 @api_router.patch("/consultations/{consultation_id}/status")
-async def update_consultation_status(consultation_id: str, status: str):
+async def update_consultation_status(consultation_id: str, status: str, token: dict = Depends(verify_token)):
     result = await db.consultations.update_one(
         {"id": consultation_id},
         {"$set": {"status": status}}
@@ -233,7 +233,7 @@ async def update_consultation_status(consultation_id: str, status: str):
 
 
 @api_router.get("/stats")
-async def get_stats():
+async def get_stats(token: dict = Depends(verify_token)):
     total_quotes = await db.quotes.count_documents({})
     pending_quotes = await db.quotes.count_documents({"status": "pending"})
     total_consultations = await db.consultations.count_documents({})
