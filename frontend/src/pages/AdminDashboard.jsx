@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, TrendingUp, Clock, CheckCircle, XCircle, LogOut } from 'lucide-react';
+import { ArrowLeft, TrendingUp, Clock, CheckCircle, XCircle, LogOut, Key } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'sonner';
+import PasswordChangeModal from '../components/PasswordChangeModal';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
