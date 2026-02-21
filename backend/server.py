@@ -1,12 +1,12 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from pydantic import BaseModel, Field, ConfigDict, EmailStr
+from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
 
@@ -14,59 +14,183 @@ from datetime import datetime, timezone
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
-# Create the main app without a prefix
 app = FastAPI()
-
-# Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
 
-# Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
+class Service(BaseModel):
+    model_config = ConfigDict(extra="ignore")
     
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    name: str
+    description: str
+    features: List[str]
+    icon: str
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-class StatusCheckCreate(BaseModel):
-    client_name: str
 
-# Add your routes to the router instead of directly to app
+class QuoteRequest(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    email: EmailStr
+    company: Optional[str] = None
+    service: str
+    budget: Optional[str] = None
+    description: str
+    status: str = "pending"
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class QuoteRequestCreate(BaseModel):
+    name: str
+    email: EmailStr
+    company: Optional[str] = None
+    service: str
+    budget: Optional[str] = None
+    description: str
+
+
+class ConsultationBooking(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    email: EmailStr
+    phone: Optional[str] = None
+    preferred_date: str
+    preferred_time: str
+    topic: str
+    message: Optional[str] = None
+    status: str = "pending"
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class ConsultationBookingCreate(BaseModel):
+    name: str
+    email: EmailStr
+    phone: Optional[str] = None
+    preferred_date: str
+    preferred_time: str
+    topic: str
+    message: Optional[str] = None
+
+
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Development Services API"}
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
-    
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
-    
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
+@api_router.get("/services", response_model=List[Service])
+async def get_services():
+    services = await db.services.find({}, {"_id": 0}).to_list(100)
     
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
+    for service in services:
+        if isinstance(service.get('created_at'), str):
+            service['created_at'] = datetime.fromisoformat(service['created_at'])
     
-    return status_checks
+    return services
 
-# Include the router in the main app
+
+@api_router.post("/services", response_model=Service)
+async def create_service(service: Service):
+    doc = service.model_dump()
+    doc['created_at'] = doc['created_at'].isoformat()
+    
+    await db.services.insert_one(doc)
+    return service
+
+
+@api_router.post("/quotes", response_model=QuoteRequest)
+async def create_quote_request(quote: QuoteRequestCreate):
+    quote_obj = QuoteRequest(**quote.model_dump())
+    
+    doc = quote_obj.model_dump()
+    doc['created_at'] = doc['created_at'].isoformat()
+    
+    await db.quotes.insert_one(doc)
+    return quote_obj
+
+
+@api_router.get("/quotes", response_model=List[QuoteRequest])
+async def get_quote_requests():
+    quotes = await db.quotes.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
+    
+    for quote in quotes:
+        if isinstance(quote.get('created_at'), str):
+            quote['created_at'] = datetime.fromisoformat(quote['created_at'])
+    
+    return quotes
+
+
+@api_router.patch("/quotes/{quote_id}/status")
+async def update_quote_status(quote_id: str, status: str):
+    result = await db.quotes.update_one(
+        {"id": quote_id},
+        {"$set": {"status": status}}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Quote not found")
+    
+    return {"success": True}
+
+
+@api_router.post("/consultations", response_model=ConsultationBooking)
+async def create_consultation(consultation: ConsultationBookingCreate):
+    consultation_obj = ConsultationBooking(**consultation.model_dump())
+    
+    doc = consultation_obj.model_dump()
+    doc['created_at'] = doc['created_at'].isoformat()
+    
+    await db.consultations.insert_one(doc)
+    return consultation_obj
+
+
+@api_router.get("/consultations", response_model=List[ConsultationBooking])
+async def get_consultations():
+    consultations = await db.consultations.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
+    
+    for consultation in consultations:
+        if isinstance(consultation.get('created_at'), str):
+            consultation['created_at'] = datetime.fromisoformat(consultation['created_at'])
+    
+    return consultations
+
+
+@api_router.patch("/consultations/{consultation_id}/status")
+async def update_consultation_status(consultation_id: str, status: str):
+    result = await db.consultations.update_one(
+        {"id": consultation_id},
+        {"$set": {"status": status}}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Consultation not found")
+    
+    return {"success": True}
+
+
+@api_router.get("/stats")
+async def get_stats():
+    total_quotes = await db.quotes.count_documents({})
+    pending_quotes = await db.quotes.count_documents({"status": "pending"})
+    total_consultations = await db.consultations.count_documents({})
+    pending_consultations = await db.consultations.count_documents({"status": "pending"})
+    
+    return {
+        "total_quotes": total_quotes,
+        "pending_quotes": pending_quotes,
+        "total_consultations": total_consultations,
+        "pending_consultations": pending_consultations
+    }
+
+
 app.include_router(api_router)
 
 app.add_middleware(
@@ -77,7 +201,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
