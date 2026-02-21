@@ -162,7 +162,7 @@ async def create_quote_request(quote: QuoteRequestCreate):
 
 
 @api_router.get("/quotes", response_model=List[QuoteRequest])
-async def get_quote_requests(limit: int = 50, skip: int = 0):
+async def get_quote_requests(limit: int = 50, skip: int = 0, token: dict = Depends(verify_token)):
     quotes = await db.quotes.find({}, {"_id": 0}).sort("created_at", -1).skip(skip).limit(limit).to_list(limit)
     
     for quote in quotes:
@@ -173,13 +173,13 @@ async def get_quote_requests(limit: int = 50, skip: int = 0):
 
 
 @api_router.get("/quotes/count")
-async def get_quotes_count():
+async def get_quotes_count(token: dict = Depends(verify_token)):
     total = await db.quotes.count_documents({})
     return {"total": total}
 
 
 @api_router.patch("/quotes/{quote_id}/status")
-async def update_quote_status(quote_id: str, status: str):
+async def update_quote_status(quote_id: str, status: str, token: dict = Depends(verify_token)):
     result = await db.quotes.update_one(
         {"id": quote_id},
         {"$set": {"status": status}}
