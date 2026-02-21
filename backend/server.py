@@ -116,6 +116,11 @@ class TokenResponse(BaseModel):
     token_type: str = "bearer"
 
 
+class PasswordChange(BaseModel):
+    current_password: str
+    new_password: str
+
+
 @api_router.get("/")
 async def root():
     return {"message": "Development Services API"}
