@@ -5,6 +5,7 @@ import Landing from '@/pages/Landing';
 import QuoteRequest from '@/pages/QuoteRequest';
 import ConsultationBooking from '@/pages/ConsultationBooking';
 import AdminDashboard from '@/pages/AdminDashboard';
+import AdminLogin from '@/pages/AdminLogin';
 import { Toaster } from 'sonner';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/quote" element={<QuoteRequest />} />
           <Route path="/consultation" element={<ConsultationBooking />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </BrowserRouter>
