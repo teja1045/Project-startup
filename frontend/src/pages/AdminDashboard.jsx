@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, TrendingUp, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { ArrowLeft, TrendingUp, Clock, CheckCircle, XCircle, LogOut } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'sonner';
 
@@ -26,8 +26,28 @@ const AdminDashboard = () => {
   const itemsPerPage = 50;
 
   useEffect(() => {
+    const token = localStorage.getItem('admin_token');
+    if (!token) {
+      navigate('/admin/login');
+      return;
+    }
     fetchData();
   }, [quotesPage, consultationsPage]);
+
+  const getAuthHeaders = () => {
+    const token = localStorage.getItem('admin_token');
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    };
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('admin_token');
+    toast.success('Logged out successfully');
+    navigate('/admin/login');
+  };
 
   const fetchData = async () => {
     setLoading(true);
