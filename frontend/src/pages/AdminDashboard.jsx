@@ -146,6 +146,12 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen py-20 px-8" data-testid="admin-dashboard-page">
+      <PasswordChangeModal
+        isOpen={showPasswordModal}
+        onClose={() => setShowPasswordModal(false)}
+        onPasswordChanged={handlePasswordChanged}
+      />
+      
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <button
@@ -156,14 +162,24 @@ const AdminDashboard = () => {
             <ArrowLeft className="w-5 h-5" />
             Back to Home
           </button>
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-2 text-[#94a3b8] hover:text-red-400 transition-colors"
-            data-testid="logout-button"
-          >
-            <LogOut className="w-5 h-5" />
-            Logout
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setShowPasswordModal(true)}
+              className="flex items-center gap-2 text-[#94a3b8] hover:text-[#6366f1] transition-colors"
+              data-testid="change-password-button"
+            >
+              <Key className="w-5 h-5" />
+              Change Password
+            </button>
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 text-[#94a3b8] hover:text-red-400 transition-colors"
+              data-testid="logout-button"
+            >
+              <LogOut className="w-5 h-5" />
+              Logout
+            </button>
+          </div>
         </div>
 
         <h1
