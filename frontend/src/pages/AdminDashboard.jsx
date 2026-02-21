@@ -32,15 +32,19 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [statsRes, quotesRes, consultationsRes] = await Promise.all([
+      const [statsRes, quotesRes, consultationsRes, quotesCountRes, consultationsCountRes] = await Promise.all([
         axios.get(`${API}/stats`),
-        axios.get(`${API}/quotes`),
-        axios.get(`${API}/consultations`)
+        axios.get(`${API}/quotes?limit=${itemsPerPage}&skip=${quotesPage * itemsPerPage}`),
+        axios.get(`${API}/consultations?limit=${itemsPerPage}&skip=${consultationsPage * itemsPerPage}`),
+        axios.get(`${API}/quotes/count`),
+        axios.get(`${API}/consultations/count`)
       ]);
       
       setStats(statsRes.data);
       setQuotes(quotesRes.data);
       setConsultations(consultationsRes.data);
+      setQuotesTotal(quotesCountRes.data.total);
+      setConsultationsTotal(consultationsCountRes.data.total);
     } catch (error) {
       console.error('Error fetching data:', error);
       toast.error('Failed to load dashboard data');
