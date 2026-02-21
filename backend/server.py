@@ -153,8 +153,8 @@ async def create_consultation(consultation: ConsultationBookingCreate):
 
 
 @api_router.get("/consultations", response_model=List[ConsultationBooking])
-async def get_consultations():
-    consultations = await db.consultations.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
+async def get_consultations(limit: int = 50, skip: int = 0):
+    consultations = await db.consultations.find({}, {"_id": 0}).sort("created_at", -1).skip(skip).limit(limit).to_list(limit)
     
     for consultation in consultations:
         if isinstance(consultation.get('created_at'), str):
