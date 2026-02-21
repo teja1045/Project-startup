@@ -135,6 +135,30 @@ async def admin_login(login: AdminLogin):
     return TokenResponse(access_token=access_token)
 
 
+@api_router.post("/admin/change-password")
+async def change_admin_password(password_change: PasswordChange, token: dict = Depends(verify_token)):
+    if password_change.current_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="Current password is incorrect")
+    
+    # Update password in environment file
+    env_path = ROOT_DIR / '.env'
+    with open(env_path, 'r') as f:
+        lines = f.readlines()
+    
+    with open(env_path, 'w') as f:
+        for line in lines:
+            if line.startswith('ADMIN_PASSWORD='):
+                f.write(f'ADMIN_PASSWORD="{password_change.new_password}"\n')
+            else:
+                f.write(line)
+    
+    # Update global variable
+    global ADMIN_PASSWORD
+    ADMIN_PASSWORD = password_change.new_password
+    
+    return {"message": "Password changed successfully. Please login again with new password."}
+
+
 @api_router.get("/services", response_model=List[Service])
 async def get_services():
     services = await db.services.find({}, {"_id": 0}).to_list(100)
