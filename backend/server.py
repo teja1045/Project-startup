@@ -118,8 +118,8 @@ async def create_quote_request(quote: QuoteRequestCreate):
 
 
 @api_router.get("/quotes", response_model=List[QuoteRequest])
-async def get_quote_requests():
-    quotes = await db.quotes.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
+async def get_quote_requests(limit: int = 50, skip: int = 0):
+    quotes = await db.quotes.find({}, {"_id": 0}).sort("created_at", -1).skip(skip).limit(limit).to_list(limit)
     
     for quote in quotes:
         if isinstance(quote.get('created_at'), str):
