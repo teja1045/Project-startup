@@ -27,7 +27,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [quotesPage, consultationsPage]);
 
   const fetchData = async () => {
     setLoading(true);
