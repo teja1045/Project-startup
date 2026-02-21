@@ -24,6 +24,13 @@ code {
     }
 }
 
+/* Hide Emergent watermark */
+#emergent-badge {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
 @layer utilities {
     .text-balance {
         text-wrap: balance;
