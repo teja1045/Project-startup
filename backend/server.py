@@ -128,6 +128,12 @@ async def get_quote_requests(limit: int = 50, skip: int = 0):
     return quotes
 
 
+@api_router.get("/quotes/count")
+async def get_quotes_count():
+    total = await db.quotes.count_documents({})
+    return {"total": total}
+
+
 @api_router.patch("/quotes/{quote_id}/status")
 async def update_quote_status(quote_id: str, status: str):
     result = await db.quotes.update_one(
