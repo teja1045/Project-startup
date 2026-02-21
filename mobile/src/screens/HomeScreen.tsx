@@ -59,9 +59,6 @@ const HomeScreen = () => {
             <View style={styles.logo} />
             <Text style={styles.logoText}>DevServices</Text>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate('AdminLogin')}>
-            <Text style={styles.adminLink}>Admin</Text>
-          </TouchableOpacity>
         </View>
 
         {/* Hero Section */}
