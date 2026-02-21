@@ -107,6 +107,15 @@ class ConsultationBookingCreate(BaseModel):
     message: Optional[str] = None
 
 
+class AdminLogin(BaseModel):
+    password: str
+
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+
+
 @api_router.get("/")
 async def root():
     return {"message": "Development Services API"}
