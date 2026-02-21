@@ -85,11 +85,6 @@ const AdminLoginScreen = () => {
               loading={loading}
             />
           </View>
-
-          <GlassCard style={styles.infoCard}>
-            <Text style={styles.infoText}>Default password: admin123</Text>
-            <Text style={styles.infoSubtext}>Change this in your backend .env file</Text>
-          </GlassCard>
         </GlassCard>
       </View>
     </KeyboardAvoidingView>
