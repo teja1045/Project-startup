@@ -324,6 +324,29 @@ const AdminDashboard = () => {
                     </div>
                   ))
                 )}
+                {consultationsTotal > itemsPerPage && (
+                  <div className="flex items-center justify-center gap-4 mt-8" data-testid="consultations-pagination">
+                    <button
+                      onClick={() => setConsultationsPage(p => Math.max(0, p - 1))}
+                      disabled={consultationsPage === 0}
+                      className="btn-outline px-4 py-2 rounded-lg text-sm disabled:opacity-30 disabled:cursor-not-allowed"
+                      data-testid="consultations-prev-page"
+                    >
+                      Previous
+                    </button>
+                    <span className="text-sm text-[#94a3b8]">
+                      Page {consultationsPage + 1} of {Math.ceil(consultationsTotal / itemsPerPage)}
+                    </span>
+                    <button
+                      onClick={() => setConsultationsPage(p => p + 1)}
+                      disabled={(consultationsPage + 1) * itemsPerPage >= consultationsTotal}
+                      className="btn-outline px-4 py-2 rounded-lg text-sm disabled:opacity-30 disabled:cursor-not-allowed"
+                      data-testid="consultations-next-page"
+                    >
+                      Next
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>
