@@ -240,6 +240,29 @@ const AdminDashboard = () => {
                     </div>
                   ))
                 )}
+                {quotesTotal > itemsPerPage && (
+                  <div className="flex items-center justify-center gap-4 mt-8" data-testid="quotes-pagination">
+                    <button
+                      onClick={() => setQuotesPage(p => Math.max(0, p - 1))}
+                      disabled={quotesPage === 0}
+                      className="btn-outline px-4 py-2 rounded-lg text-sm disabled:opacity-30 disabled:cursor-not-allowed"
+                      data-testid="quotes-prev-page"
+                    >
+                      Previous
+                    </button>
+                    <span className="text-sm text-[#94a3b8]">
+                      Page {quotesPage + 1} of {Math.ceil(quotesTotal / itemsPerPage)}
+                    </span>
+                    <button
+                      onClick={() => setQuotesPage(p => p + 1)}
+                      disabled={(quotesPage + 1) * itemsPerPage >= quotesTotal}
+                      className="btn-outline px-4 py-2 rounded-lg text-sm disabled:opacity-30 disabled:cursor-not-allowed"
+                      data-testid="quotes-next-page"
+                    >
+                      Next
+                    </button>
+                  </div>
+                )}
               </div>
             )}
 
