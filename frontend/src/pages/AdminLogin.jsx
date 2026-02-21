@@ -85,15 +85,6 @@ const AdminLogin = () => {
               {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>
-
-          <div className="mt-6 p-4 bg-[#1e1e2e] rounded-lg border border-[#27272a]">
-            <p className="text-xs text-[#94a3b8] text-center">
-              Default password: <code className="text-[#6366f1] font-mono">admin123</code>
-            </p>
-            <p className="text-xs text-[#94a3b8] text-center mt-1">
-              Change this in your backend .env file
-            </p>
-          </div>
         </div>
       </div>
     </div>
