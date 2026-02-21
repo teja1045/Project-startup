@@ -93,7 +93,7 @@ const Landing = () => {
             <a href="#services" className="text-sm hover:text-[#6366f1] transition-colors" data-testid="nav-services-link">Services</a>
             <a href="#process" className="text-sm hover:text-[#6366f1] transition-colors" data-testid="nav-process-link">Process</a>
             <button
-              onClick={() => navigate('/admin')}
+              onClick={() => navigate('/admin/login')}
               className="text-sm hover:text-[#6366f1] transition-colors"
               data-testid="nav-admin-link"
             >
