@@ -4,9 +4,6 @@ import { ArrowLeft, Send } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'sonner';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
 const QuoteRequest = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -31,7 +28,7 @@ const QuoteRequest = () => {
     setLoading(true);
 
     try {
-      await axios.post(`${API}/quotes`, formData);
+      await axios.post(`/api/quotes`, formData);
       toast.success('Quote request submitted successfully!');
       setTimeout(() => {
         navigate('/');

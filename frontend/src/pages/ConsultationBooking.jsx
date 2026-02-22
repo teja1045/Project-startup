@@ -4,9 +4,6 @@ import { ArrowLeft, Calendar } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'sonner';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
 const ConsultationBooking = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -32,7 +29,7 @@ const ConsultationBooking = () => {
     setLoading(true);
 
     try {
-      await axios.post(`${API}/consultations`, formData);
+      await axios.post(`/api/consultations`, formData);
       toast.success('Consultation booked successfully!');
       setTimeout(() => {
         navigate('/');
