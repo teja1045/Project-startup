@@ -1,20 +1,20 @@
-# Custom Domain Setup Guide: www.devs.com
+# Custom Domain Setup Guide: devservices.com
 
 ## ✅ COMPLETED BY ME
 
-I've already configured all your application files for www.devs.com:
+All application files configured for **devservices.com**:
 
 ### Updated Files:
-1. ✅ `/app/backend/.env` - CORS configured for www.devs.com
-2. ✅ `/app/frontend/.env` - Backend URL set to https://www.devs.com
-3. ✅ `/app/mobile/.env` - API URL set to https://www.devs.com/api
+1. ✅ `/app/backend/.env` - CORS configured for www.devservices.com
+2. ✅ `/app/frontend/.env` - Backend URL: https://www.devservices.com
+3. ✅ `/app/mobile/.env` - API URL: https://www.devservices.com/api
 4. ✅ Backend restarted with new configuration
 
 ---
 
 ## 🔴 ACTION REQUIRED BY YOU
 
-You need to complete these 2 steps manually:
+Complete these 2 steps manually:
 
 ### STEP 1: Add Custom Domain in Emergent Dashboard
 
@@ -24,102 +24,128 @@ You need to complete these 2 steps manually:
 
 2. **Navigate to Your App**
    - Find your "DevServices" app
-   - Click on it to open settings
+   - Click to open settings
 
 3. **Add Custom Domain**
    - Look for "Custom Domain" or "Domains" section
-   - Click "Add Domain" or "Configure Domain"
-   - Enter: `www.devs.com`
-   - Click "Save" or "Add"
-   - Note: This costs 50 credits/month
-
-4. **Wait for SSL Certificate**
-   - Emergent will automatically provision SSL
-   - This takes 5-15 minutes
-   - Status will show as "Active" when ready
+   - Click "Add Domain"
+   - Enter: `www.devservices.com`
+   - Click "Save"
+   - Cost: 50 credits/month
+   - SSL automatically provisioned (5-15 minutes)
 
 ---
 
 ### STEP 2: Configure DNS Records at Your Domain Registrar
 
-**Where to do this:**
-- Go to your domain registrar (GoDaddy, Namecheap, Cloudflare, etc.)
-- Find DNS settings or DNS management
+**Where:** Your domain registrar (GoDaddy, Namecheap, Cloudflare, etc.)
 
 **⚠️ IMPORTANT: Delete existing A records first!**
 
 **Add these DNS records:**
 
-#### For www.devs.com:
+#### For www.devservices.com:
 ```
 Type: CNAME
 Name: www
 Value: build-serve-test.preview.emergentagent.com
-TTL: 3600 (or Auto)
+TTL: 3600
 ```
 
-#### For devs.com (root domain):
+#### For devservices.com (root domain):
 ```
-Type: CNAME (or ALIAS if your registrar uses that)
-Name: @ (or blank, or devs.com)
+Type: CNAME (or ALIAS)
+Name: @ (or blank)
 Value: build-serve-test.preview.emergentagent.com
-TTL: 3600 (or Auto)
+TTL: 3600
 ```
 
-**Example for popular registrars:**
+**Example configurations:**
 
 **GoDaddy:**
-- DNS Management → Add → CNAME
-- Host: www → Points to: build-serve-test.preview.emergentagent.com
+```
+DNS Management → Add → CNAME
+Host: www
+Points to: build-serve-test.preview.emergentagent.com
+TTL: 1 Hour
+```
 
 **Namecheap:**
-- Advanced DNS → Add New Record → CNAME
-- Host: www → Target: build-serve-test.preview.emergentagent.com
+```
+Advanced DNS → Add New Record
+Type: CNAME Record
+Host: www
+Target: build-serve-test.preview.emergentagent.com
+TTL: Automatic
+```
 
 **Cloudflare:**
-- DNS → Add record → CNAME
-- Name: www → Target: build-serve-test.preview.emergentagent.com
-- Proxy status: ON (orange cloud)
+```
+DNS → Add record
+Type: CNAME
+Name: www
+Target: build-serve-test.preview.emergentagent.com
+Proxy status: ON (orange cloud)
+TTL: Auto
+```
 
 ---
 
-## ⏱️ DNS Propagation Time
+## ⏱️ Timeline
 
-- **Typical**: 5-15 minutes
-- **Maximum**: Up to 24-48 hours globally
-- **Check status**: Use https://dnschecker.org
+- DNS Configuration: 5 minutes
+- DNS Propagation: 15 minutes (max 24 hours)
+- SSL Certificate: Auto-provisioned
+- **Total**: ~25 minutes
 
-**Test DNS propagation:**
-```bash
-nslookup www.devs.com
-# Should resolve to Emergent servers
-```
+---
+
+## 🌐 Your URLs After Setup
+
+**Live URLs:**
+- **Website**: https://www.devservices.com
+- **Admin**: https://www.devservices.com/admin/login
+- **API**: https://www.devservices.com/api
+
+**Admin Access:**
+- Direct URL only (hidden from public)
+- Password protected
+- Change password from dashboard
 
 ---
 
 ## 🧪 Testing After Setup
 
-Once DNS propagates, test these URLs:
+**1. Check DNS Propagation:**
+```bash
+nslookup www.devservices.com
+# Should resolve to Emergent servers
+```
 
-1. **Main Website:**
-   ```
-   https://www.devs.com
-   ```
+**Online checker:**
+- Visit: https://dnschecker.org
+- Enter: www.devservices.com
+- Check global propagation
 
-2. **Admin Dashboard:**
-   ```
-   https://www.devs.com/admin/login
-   ```
+**2. Test Website:**
+```bash
+curl https://www.devservices.com
+```
 
-3. **API Test:**
-   ```bash
-   curl https://www.devs.com/api/
-   ```
+**3. Test API:**
+```bash
+curl https://www.devservices.com/api/
+```
 
-4. **Services Endpoint:**
-   ```bash
-   curl https://www.devs.com/api/services
-   ```
+**4. Test Services Endpoint:**
+```bash
+curl https://www.devservices.com/api/services
+```
+
+**5. Test Admin Login:**
+- Visit: https://www.devservices.com/admin/login
+- Enter your admin password
+- Should see dashboard with stats
 
 ---
 
@@ -127,93 +153,134 @@ Once DNS propagates, test these URLs:
 
 After domain is active:
 
-1. **iOS App:**
-   ```bash
-   cd /app/mobile
-   # Build with new API URL
-   npx react-native run-ios --configuration Release
-   ```
+**iOS:**
+```bash
+cd /app/mobile
+npx react-native run-ios --configuration Release
+```
 
-2. **Android App:**
-   ```bash
-   cd /app/mobile
-   ./gradlew assembleRelease
-   ```
+**Android:**
+```bash
+cd /app/mobile
+cd android
+./gradlew assembleRelease
+# APK: android/app/build/outputs/apk/release/app-release.apk
+```
 
-3. **Update App Stores:**
-   - Rebuild apps with new API URL
-   - Submit updates to App Store / Google Play
+**For App Stores:**
+- Rebuild with new API URL (already configured)
+- Test thoroughly
+- Submit updates to App Store / Google Play
 
 ---
 
-## ✅ Final Checklist
+## ✅ Setup Checklist
 
-- [ ] Custom domain added in Emergent dashboard
-- [ ] DNS CNAME records configured
-- [ ] Old A records removed
+- [ ] Purchase domain devservices.com (if not owned)
+- [ ] Add custom domain in Emergent dashboard
+- [ ] Configure DNS CNAME records
+- [ ] Remove old A records
 - [ ] Wait 15 minutes for DNS propagation
-- [ ] SSL certificate provisioned (check Emergent dashboard)
-- [ ] Test www.devs.com loads correctly
-- [ ] Test admin login at www.devs.com/admin/login
+- [ ] Check SSL certificate (auto-provisioned)
+- [ ] Test www.devservices.com loads
+- [ ] Test admin login
 - [ ] Test API endpoints
-- [ ] Rebuild mobile apps with new domain
-- [ ] Update app stores with new builds
+- [ ] Rebuild mobile apps
+- [ ] Deploy to app stores
 
 ---
 
 ## 🔧 Troubleshooting
 
 ### Website not loading?
-```bash
-# Check if DNS is propagated
-nslookup www.devs.com
 
-# Should show:
-# Non-authoritative answer:
-# www.devs.com canonical name = build-serve-test.preview.emergentagent.com
+**Check DNS:**
+```bash
+nslookup www.devservices.com
 ```
 
+Should show:
+```
+Non-authoritative answer:
+www.devservices.com canonical name = build-serve-test.preview.emergentagent.com
+```
+
+**If not resolving:**
+- Wait longer (up to 24 hours)
+- Check DNS records are correct
+- Verify old A records are removed
+
 ### SSL Certificate Error?
-- Wait 15 minutes after adding domain
-- Check Emergent dashboard for certificate status
-- Ensure DNS is pointing correctly
 
-### API not working?
-- Check backend logs: `tail -f /var/log/supervisor/backend.err.log`
-- Verify CORS settings allow www.devs.com
-- Test API directly: `curl https://www.devs.com/api/`
+**Wait 15 minutes** after adding domain for certificate provisioning
 
-### Admin can't login?
+**Check certificate status:**
+- Emergent dashboard → Custom Domain section
+- Should show "Active" with green indicator
+
+### API Not Working?
+
+**Check CORS:**
+```bash
+curl -I https://www.devservices.com/api/
+```
+
+**Check backend logs:**
+```bash
+tail -f /var/log/supervisor/backend.err.log
+```
+
+**Verify environment:**
+```bash
+grep CORS_ORIGINS /app/backend/.env
+# Should include devservices.com
+```
+
+### Admin Can't Login?
+
 - Clear browser cache and cookies
-- Check if token is expired
-- Try incognito/private browsing mode
+- Try incognito/private browsing
+- Check if token expired (24 hours)
+- Verify password is correct
+- Check backend is running: `sudo supervisorctl status backend`
 
 ---
 
-## 📞 Support
+## 💰 Pricing
 
-If you encounter issues:
-1. Check Emergent platform status
-2. Review DNS configuration
-3. Check application logs
-4. Contact Emergent support
+**Custom Domain on Emergent:**
+- Cost: 50 credits/month
+- SSL Certificate: Included
+- Unlimited bandwidth
+- Auto-renewal
 
 ---
 
 ## 🎉 Success!
 
-Once setup is complete, your platform will be live at:
-- **Website**: https://www.devs.com
-- **Admin**: https://www.devs.com/admin/login
-- **API**: https://www.devs.com/api
+Once complete, your DevServices platform will be live at:
 
-Your modern service platform with glassmorphism UI and mobile apps will be accessible on your custom domain!
+🌐 **Website**: https://www.devservices.com  
+🔐 **Admin**: https://www.devservices.com/admin/login  
+📡 **API**: https://www.devservices.com/api  
+📱 **Mobile**: iOS & Android apps with API integration
 
 ---
 
-**Note**: I've done all the backend configuration. You just need to:
-1. Add domain in Emergent dashboard (2 minutes)
-2. Configure DNS records (5 minutes)
-3. Wait for propagation (15 minutes)
+## 📞 Need Help?
 
-Total time: ~25 minutes! 🚀
+1. Check Emergent platform documentation
+2. Review DNS configuration with registrar
+3. Check application logs
+4. Contact Emergent support
+
+---
+
+**Configuration Complete!** 🚀
+
+Your backend is ready. Just need to:
+1. Add domain in Emergent (2 min)
+2. Configure DNS (5 min)
+3. Wait for propagation (15 min)
+
+Total: ~25 minutes to go live!
