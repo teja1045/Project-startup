@@ -252,7 +252,7 @@ const Landing = () => {
       {/* Footer */}
       <footer className="border-t border-[#27272a] py-8 px-8" data-testid="footer">
         <div className="max-w-7xl mx-auto text-center text-[#94a3b8] text-sm">
-          <p>© 2024 DevServices. Engineering Excellence.</p>
+          <p>© 2024 NSSolutions. Engineering Excellence.</p>
         </div>
       </footer>
     </div>
