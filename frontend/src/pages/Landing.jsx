@@ -3,9 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Code, Rocket, Shield, ArrowRight, CheckCircle2 } from 'lucide-react';
 import axios from 'axios';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
 const Landing = () => {
   const navigate = useNavigate();
   const [services, setServices] = useState([]);
@@ -13,7 +10,7 @@ const Landing = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get(`${API}/services`);
+        const response = await axios.get(`/api/services`);
         if (response.data && response.data.length > 0) {
           setServices(response.data);
         } else {

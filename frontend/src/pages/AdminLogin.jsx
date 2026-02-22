@@ -4,9 +4,6 @@ import { ArrowLeft, Lock } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'sonner';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
 const AdminLogin = () => {
   const navigate = useNavigate();
   const [password, setPassword] = useState('');
@@ -17,7 +14,7 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${API}/admin/login`, { password });
+      const response = await axios.post(`/api/admin/login`, { password });
       localStorage.setItem('admin_token', response.data.access_token);
       toast.success('Login successful!');
       navigate('/admin');
