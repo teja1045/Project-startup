@@ -57,7 +57,7 @@ const HomeScreen = () => {
         <View style={styles.header}>
           <View style={styles.logoContainer}>
             <View style={styles.logo} />
-            <Text style={styles.logoText}>DevServices</Text>
+            <Text style={styles.logoText}>NSSolutions</Text>
           </View>
         </View>
 
