@@ -99,7 +99,7 @@ def setup_admin_password():
     print()
     print("📋 Setup Details:")
     print(f"   Admin Password: {password}")
-    print(f"   Admin URL: https://build-serve-test.preview.emergentagent.com/admin/login")
+    print(f"   Admin URL: https://nss-qa-build.preview.emergentagent.com/admin/login")
     print()
     print("🔐 Security Tips:")
     print("   • Save your password in a secure password manager")

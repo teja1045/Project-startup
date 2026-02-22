@@ -40,7 +40,7 @@ sudo supervisorctl restart backend
 
 **Admin URL:** 
 ```
-https://build-serve-test.preview.emergentagent.com/admin/login
+https://nss-qa-build.preview.emergentagent.com/admin/login
 ```
 
 **Direct Access Methods:**

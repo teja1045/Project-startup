@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 from typing import Dict, Any
 
 class DevServicesAPITester:
-    def __init__(self, base_url: str = "https://build-serve-test.preview.emergentagent.com"):
+    def __init__(self, base_url: str = "https://nss-qa-build.preview.emergentagent.com"):
         self.base_url = base_url
         self.api_base = f"{base_url}/api"
         self.tests_run = 0
