@@ -5,9 +5,6 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import PasswordChangeModal from '../components/PasswordChangeModal';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [stats, setStats] = useState({
@@ -61,11 +58,11 @@ const AdminDashboard = () => {
     try {
       const authHeaders = getAuthHeaders();
       const [statsRes, quotesRes, consultationsRes, quotesCountRes, consultationsCountRes] = await Promise.all([
-        axios.get(`${API}/stats`, authHeaders),
-        axios.get(`${API}/quotes?limit=${itemsPerPage}&skip=${quotesPage * itemsPerPage}`, authHeaders),
-        axios.get(`${API}/consultations?limit=${itemsPerPage}&skip=${consultationsPage * itemsPerPage}`, authHeaders),
-        axios.get(`${API}/quotes/count`, authHeaders),
-        axios.get(`${API}/consultations/count`, authHeaders)
+        axios.get(`/api/stats`, authHeaders),
+        axios.get(`/api/quotes?limit=${itemsPerPage}&skip=${quotesPage * itemsPerPage}`, authHeaders),
+        axios.get(`/api/consultations?limit=${itemsPerPage}&skip=${consultationsPage * itemsPerPage}`, authHeaders),
+        axios.get(`/api/quotes/count`, authHeaders),
+        axios.get(`/api/consultations/count`, authHeaders)
       ]);
       
       setStats(statsRes.data);
@@ -89,7 +86,7 @@ const AdminDashboard = () => {
 
   const updateQuoteStatus = async (quoteId, status) => {
     try {
-      await axios.patch(`${API}/quotes/${quoteId}/status?status=${status}`, {}, getAuthHeaders());
+      await axios.patch(`/api/quotes/${quoteId}/status?status=${status}`, {}, getAuthHeaders());
       toast.success('Quote status updated');
       fetchData();
     } catch (error) {
@@ -105,7 +102,7 @@ const AdminDashboard = () => {
 
   const updateConsultationStatus = async (consultationId, status) => {
     try {
-      await axios.patch(`${API}/consultations/${consultationId}/status?status=${status}`, {}, getAuthHeaders());
+      await axios.patch(`/api/consultations/${consultationId}/status?status=${status}`, {}, getAuthHeaders());
       toast.success('Consultation status updated');
       fetchData();
     } catch (error) {
