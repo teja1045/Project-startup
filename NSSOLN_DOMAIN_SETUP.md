@@ -1,5 +1,5 @@
 # NSSolutions - Custom Domain Setup Guide
-## www.nss.com Configuration
+## www.nssoln.com Configuration
 
 Complete step-by-step guide to set up your custom domain for NSSolutions platform.
 
@@ -7,12 +7,12 @@ Complete step-by-step guide to set up your custom domain for NSSolutions platfor
 
 ## ✅ COMPLETED CONFIGURATION
 
-All application files have been configured for **www.nss.com**:
+All application files have been configured for **www.nssoln.com**:
 
 ### Updated Files:
-1. ✅ `/app/backend/.env` - CORS: www.nss.com, nss.com
-2. ✅ `/app/frontend/.env` - Backend URL: https://www.nss.com
-3. ✅ `/app/mobile/.env` - API URL: https://www.nss.com/api
+1. ✅ `/app/backend/.env` - CORS: www.nssoln.com, nssoln.com
+2. ✅ `/app/frontend/.env` - Backend URL: https://www.nssoln.com
+3. ✅ `/app/mobile/.env` - API URL: https://www.nssoln.com/api
 4. ✅ Frontend branding - Changed to "NSSolutions"
 5. ✅ Mobile app branding - Changed to "NSSolutions"
 6. ✅ Backend restarted with new configuration
@@ -33,7 +33,7 @@ All application files have been configured for **www.nss.com**:
 
 3. **Add Domain**
    - Click "Add Custom Domain" or "Configure Domain"
-   - Enter: `www.nss.com`
+   - Enter: `www.nssoln.com`
    - Click "Save" or "Add"
    - **Cost:** 50 credits/month
    - SSL certificate will be auto-provisioned
@@ -48,7 +48,7 @@ All application files have been configured for **www.nss.com**:
 
 #### Add CNAME Records:
 
-**For www.nss.com:**
+**For www.nssoln.com:**
 ```
 Type: CNAME
 Name: www
@@ -56,7 +56,7 @@ Value: build-serve-test.preview.emergentagent.com
 TTL: 3600
 ```
 
-**For nss.com (root domain):**
+**For nssoln.com (root domain):**
 ```
 Type: CNAME (or ALIAS)
 Name: @ (or blank)
@@ -69,9 +69,9 @@ TTL: 3600
 ## 🌐 Your New URLs
 
 After setup completes:
-- **Website:** https://www.nss.com
-- **Admin:** https://www.nss.com/admin/login
-- **API:** https://www.nss.com/api
+- **Website:** https://www.nssoln.com
+- **Admin:** https://www.nssoln.com/admin/login
+- **API:** https://www.nssoln.com/api
 
 ---
 
@@ -90,27 +90,27 @@ After setup completes:
 
 **Online:**
 - Visit: https://dnschecker.org
-- Enter: www.nss.com
+- Enter: www.nssoln.com
 - Look for green checkmarks globally
 
 **Command Line:**
 ```bash
-nslookup www.nss.com
+nslookup www.nssoln.com
 ```
 
 Should show:
 ```
-www.nss.com canonical name = build-serve-test.preview.emergentagent.com
+www.nssoln.com canonical name = build-serve-test.preview.emergentagent.com
 ```
 
 ### 2. Test Website
 ```bash
-curl https://www.nss.com
+curl https://www.nssoln.com
 ```
 
 ### 3. Test API
 ```bash
-curl https://www.nss.com/api/
+curl https://www.nssoln.com/api/
 ```
 
 Should return:
@@ -119,7 +119,7 @@ Should return:
 ```
 
 ### 4. Test Admin Login
-- Visit: https://www.nss.com/admin/login
+- Visit: https://www.nssoln.com/admin/login
 - Enter your admin password
 - Should access dashboard
 
@@ -153,13 +153,13 @@ APK location: `android/app/build/outputs/apk/release/app-release.apk`
 - **App Name:** NSSolutions
 - **Bundle ID:** Update in Xcode
 - **Display Name:** NSSolutions
-- **API URL:** https://www.nss.com/api (already configured)
+- **API URL:** https://www.nssoln.com/api (already configured)
 
 ### Google Play Store:
 - **App Name:** NSSolutions
 - **Package Name:** Update in build.gradle
 - **Application Label:** NSSolutions
-- **API URL:** https://www.nss.com/api (already configured)
+- **API URL:** https://www.nssoln.com/api (already configured)
 
 ---
 
@@ -167,14 +167,14 @@ APK location: `android/app/build/outputs/apk/release/app-release.apk`
 
 ### GoDaddy:
 1. Login → My Products → Domains
-2. Find nss.com → Click "DNS"
+2. Find nssoln.com → Click "DNS"
 3. Delete all A records
 4. Add → CNAME → Host: www → Points to: build-serve-test.preview.emergentagent.com
 5. Add → CNAME → Host: @ → Points to: build-serve-test.preview.emergentagent.com
 6. Save
 
 ### Namecheap:
-1. Login → Domain List → nss.com → Manage
+1. Login → Domain List → nssoln.com → Manage
 2. Advanced DNS tab
 3. Delete all A records
 4. Add New Record → CNAME → Host: www → Target: build-serve-test.preview.emergentagent.com
@@ -182,7 +182,7 @@ APK location: `android/app/build/outputs/apk/release/app-release.apk`
 6. Save All Changes
 
 ### Cloudflare:
-1. Login → Select nss.com domain
+1. Login → Select nssoln.com domain
 2. DNS tab
 3. Delete all A records
 4. Add record → CNAME → Name: www → Target: build-serve-test.preview.emergentagent.com → Proxied: ON
@@ -196,7 +196,7 @@ APK location: `android/app/build/outputs/apk/release/app-release.apk`
 
 **Check DNS:**
 ```bash
-nslookup www.nss.com
+nslookup www.nssoln.com
 ```
 
 **Clear DNS cache:**
@@ -217,7 +217,7 @@ nslookup www.nss.com
 cat /app/backend/.env | grep CORS
 ```
 
-Should include: www.nss.com, nss.com
+Should include: www.nssoln.com, nssoln.com
 
 **Restart backend:**
 ```bash
@@ -240,14 +240,14 @@ tail -f /var/log/supervisor/backend.err.log
 
 ## ✅ Completion Checklist
 
-- [ ] Purchased domain: nss.com
+- [ ] Purchased domain: nssoln.com
 - [ ] Added custom domain in Emergent dashboard
 - [ ] Configured DNS CNAME records (www and @)
 - [ ] Deleted old A records
 - [ ] Waited for DNS propagation (15+ minutes)
 - [ ] Verified DNS with dnschecker.org
 - [ ] SSL certificate Active in Emergent
-- [ ] Website loads at https://www.nss.com
+- [ ] Website loads at https://www.nssoln.com
 - [ ] Admin login works at /admin/login
 - [ ] API responds at /api/
 - [ ] Tested services endpoint
@@ -270,7 +270,7 @@ tail -f /var/log/supervisor/backend.err.log
 
 Once all steps are complete:
 
-✅ **Website:** Live at https://www.nss.com  
+✅ **Website:** Live at https://www.nssoln.com  
 ✅ **Branding:** NSSolutions across all platforms  
 ✅ **Admin Access:** Secure at /admin/login  
 ✅ **Mobile Apps:** iOS & Android with new branding  
@@ -283,11 +283,11 @@ Once all steps are complete:
 ## 📝 Important Notes
 
 - **Branding:** All references changed from "DevServices" to "NSSolutions"
-- **Domain:** All endpoints configured for www.nss.com
+- **Domain:** All endpoints configured for www.nssoln.com
 - **Mobile Apps:** App name changed to "NSSolutions"
 - **SSL:** Automatically provisioned by Emergent
 - **Cost:** 50 credits/month for custom domain
 
 ---
 
-**Last Updated:** Configuration complete with NSSolutions branding and www.nss.com domain!
+**Last Updated:** Configuration complete with NSSolutions branding and www.nssoln.com domain!
