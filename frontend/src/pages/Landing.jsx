@@ -87,7 +87,7 @@ const Landing = () => {
         <div className="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] rounded-lg" />
-            <h1 className="text-xl font-bold" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>DevServices</h1>
+            <h1 className="text-xl font-bold" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>NSSolutions</h1>
           </div>
           <div className="hidden md:flex items-center space-x-8">
             <a href="#services" className="text-sm hover:text-[#6366f1] transition-colors" data-testid="nav-services-link">Services</a>
