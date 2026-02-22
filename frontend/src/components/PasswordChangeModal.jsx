@@ -3,9 +3,6 @@ import { X } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'sonner';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
 const PasswordChangeModal = ({ isOpen, onClose, onPasswordChanged }) => {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -31,7 +28,7 @@ const PasswordChangeModal = ({ isOpen, onClose, onPasswordChanged }) => {
     try {
       const token = localStorage.getItem('admin_token');
       await axios.post(
-        `${API}/admin/change-password`,
+        `/api/admin/change-password`,
         {
           current_password: formData.currentPassword,
           new_password: formData.newPassword
