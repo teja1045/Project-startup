@@ -150,7 +150,7 @@ const HomeScreen = () => {
         </GlassCard>
 
         <View style={styles.footer}>
-          <Text style={styles.footerText}>© 2024 DevServices. Engineering Excellence.</Text>
+          <Text style={styles.footerText}>© 2024 NSSolutions. Engineering Excellence.</Text>
         </View>
       </ScrollView>
     </View>
